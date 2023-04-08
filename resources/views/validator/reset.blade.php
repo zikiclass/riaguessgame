@@ -3,7 +3,7 @@
 
 <div class="reset">
     <form action="">
-    <img src="img/logo.jpeg"/>
+    <a href="/"><img src="img/logo.jpeg"/></a>
         <h3>Reset Password</h3>
         <input type="password" name="password" placeholder="New Password"/>
         <input type="password" name="confirmpassword" placeholder="Confirm Password"/>

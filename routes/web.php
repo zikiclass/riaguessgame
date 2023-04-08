@@ -38,6 +38,9 @@ Route::get('gamearena', [Validator::class, 'gamearena_fnc'])->name('gamearena');
 Route::get('gamesettings', [Validator::class, 'gamesettings_fnc'])->name('gamesettings');
 Route::get('become_player', [Validator::class, 'become_player_fnc'])->name('become_player');
 Route::get('startGame/{id}', [Validator::class, 'startGame_fnc'])->name('startGame');
+Route::get('playgame/{id}', [Validator::class, 'playgame_fnc'])->name('playgame');
+Route::get('updateTime/{minutes}/{seconds}', [Validator::class, 'updateTime_fnc'])->name('updateTime');
+Route::get('playagain', [Validator::class, 'playagain_fnc'])->name('playagain');
 });
 
 Route::group(['middleware' => ['auth', 'auth.admin', 'prevent-back']], function(){
@@ -47,4 +50,6 @@ Route::get('viewgames', [AdminController::class, 'viewgames_fnc'])->name('viewga
 Route::get('players', [AdminController::class, 'players_fnc'])->name('players');
 Route::get('gametitledetails/{id}', [AdminController::class, 'gametitledetails_fnc'])->name('gametitledetails');
 Route::post('gametitleupdate', [AdminController::class, 'gametitleupdate_fnc'])->name('gametitleupdate');
+Route::get('down/{id}', [AdminController::class, 'down_fnc'])->name('down');
+Route::get('up/{id}', [AdminController::class, 'up_fnc'])->name('up');
 });

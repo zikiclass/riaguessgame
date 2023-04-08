@@ -3,7 +3,7 @@
 <div class="login">
     <form>
         @csrf
-        <img src="img/logo.jpeg"/>
+        <a href="/"><img src="img/logo.jpeg"/></a>
         <h3>Login</h3>
         <input type="text" name="username" placeholder="Username" id="username"/>
         <input type="password" name="password" placeholder="Password" id="password"/>
@@ -51,7 +51,7 @@ $(document).ready(function(){
                             $('#notifDiv').fadeOut();
                         }, 3000);
                         if(data.success == 'Successfully Logged In'){
-                        window.location = "gamearena";
+                        window.location = "gamesettings";
                         }
                         else if(data.success == 'Admin Successfully Logged In'){
                             window.location = "admin";

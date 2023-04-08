@@ -117,7 +117,7 @@ input[type=submit], .setplayer{
 .setplayer{
     letter-spacing: 0;
 }
-.noplayer p{
+.noplayer .pno{
     text-transform: uppercase;
     font-weight: bold;
     margin: 10px 0;

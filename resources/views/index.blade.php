@@ -10,9 +10,11 @@
 
 <ul>
     <li><a href="/">HOME</a></li>
-    <li><a href="about">ABOUT</a></li>
+    <li><a href="#about">ABOUT</a></li>
     <li><a href="blog">BLOG</a></li>
-    <li><a href="contact">CONTACT</a></li>
+    <li><a href="#contact">CONTACT</a></li>
+    <li><a href="login">LOGIN</a></li>
+    <li><a href="signup">REGISTER</a></li>
 </ul>
 </div>
 <i class="fa fa-bars" onclick="showMenu()"></i>
@@ -26,26 +28,44 @@
 </div>
 </section>
 
-<section class="gamerule">
+<section class="gamerule rules">
 <h1>Game Rules</h1>
 <p>Below are the rules on how to play the games</p>
-<div class="row">
+<div class="row-gamerule">
 <div class="gamerules-col">
-<p><span>[1]</span><br/>It is a <strong>home game</strong> both for the young and the old.</p>
+<p><span>[1]</span><br/><strong>2 persons</strong> at both sides.</p>
 </div>
 <div class="gamerules-col">
-<p><span>[2]</span><br/>It will be to refresh the mind because human mind is a reflection of what mental faculty evolves.</p>
+<p><span>[2]</span><br/>Beautiful rounds holes created with names to identify the place to score</p>
 </div>
 <div class="gamerules-col">
-<p><span>[3]</span><br/>The Guess (thinking) ability of a person to guess right is put to functioning ability.</p>
+<p><span>[3]</span><br/>The small ‘item’ in using to score is called ‘JESH’</p>
 </div>
 <div class="gamerules-col">
-<p><span>[4]</span><br/>When your guess, it means the deep calls to the deep, you may score or not, but the reflection and re-engineering of the role in the body system of a person comes to play.</p>
+<p><span>[4]</span><br/>The longer ‘item’ to control your guessing score is named – “GBAYE”</p>
+</div>
+<div class="gamerules-col">
+<p><span>[5]</span><br/>There is a place of taking off to play</p>
+</div>
+<div class="gamerules-col">
+<p><span>[6]</span><br/>In a competition, there must be a REFEREE to guide</p>
+</div>
+<div class="gamerules-col">
+<p><span>[7]</span><br/>In a place of trust and honesty of home play, two people are involved</p>
+</div>
+<div class="gamerules-col">
+<p><span>[8]</span><br/>The ‘Demarcating Board’ is what makes it ‘GUESS’e.g your hand movement is shielded from your fellow player</p>
+</div>
+<div class="gamerules-col">
+<p><span>[9]</span><br/>The Referee or both player decides on number of times you make each guess play before arriving at a ‘WINNER’</p>
+</div>
+<div class="gamerules-col">
+<p><span>[10]</span><br/>In a Draw-Where there is no Winner, both Referee and players decide on what is called, ‘RIA SCORE’ for a winner to emerge</p>
 </div>
 </div>
 </section>
 
-<section class="gamerule">
+<section class="gamerule" id="about">
 <h1>About The Game</h1>
 <p>A Game of High Thinking Ability</p>
 <div class="row">
@@ -63,7 +83,7 @@
 </div>
 </div>
 </section>
-<section class="game">
+<section class="game" id="games">
 <h1>Our Games</h1>
 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur, doloremque!</p>
 <div class="row">
@@ -108,6 +128,19 @@
 </div>
 </section>
 
+<section class="contact" id="contact">
+<h1>Contact Us</h1>
+<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda, fugit.</p>
+<div class="row">
+<div class="contact-col">
+<img src="" alt=""/>
+</div>
+<div class="contact-col">
+
+</div>
+
+</div>
+</section>
 <section class="footer">
 <a href="/"><img src="img/logo.jpeg"/></a>
 <div>
@@ -117,9 +150,9 @@
 <div>
 <ul>
 <li><a href="/">Home</a></li>
-<li><a href="/">About Us</a></li>
-<li><a href="/">Contact</a></li>
-<li><a href="/">Our Games</a></li>
+<li><a href="#about">About Us</a></li>
+<li><a href="#contact">Contact</a></li>
+<li><a href="#games">Our Games</a></li>
 </ul>
 </div>
 </section>

@@ -8,7 +8,14 @@ use Illuminate\Support\Facades\File;
 class AdminController extends Controller
 {
     function admin_fnc(){
-        return view('admin.dashboard');
+        $data = array(
+            'gameplayed' => DB::table('gamehistory')->get(),
+            'players' => DB::table('players')->get(),
+            'admin' => DB::table('users')
+                        ->where('role', '1')
+                        ->get(),
+            );
+        return view('admin.dashboard', $data);
     }
     function gametitle_fnc(){
         $data = array(
@@ -17,10 +24,17 @@ class AdminController extends Controller
         return view('admin.gametitle', $data);
     }
     function viewgames_fnc(){
-        return view('admin.viewgames');
+        $data = array(
+            'row' => DB::table('gamehistory')->get()
+        );
+
+        return view('admin.viewgames',$data);
     }
     function players_fnc(){
-        return view('admin.players');
+        $data = array(
+            'users' => DB::table('users')->get()            
+        );
+        return view('admin.players', $data);
     }
     function gametitledetails_fnc($id){
         $row = DB::table('gamecard')
@@ -32,6 +46,23 @@ class AdminController extends Controller
         ];
         return json_encode($data);
 
+    }
+    function down_fnc($id){
+        DB::table('users')
+        ->where('username', $id)
+        ->update([
+            'role' => '0'
+        ]);
+        
+       return redirect()->route('players');
+    }
+    function up_fnc($id){
+        DB::table('users')
+        ->where('username', $id)
+        ->update([
+            'role' => '1'
+        ]);
+        return redirect()->route('players');
     }
 
     function gametitleupdate_fnc(Request $request){

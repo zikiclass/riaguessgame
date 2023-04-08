@@ -43,7 +43,7 @@ h4{
     font-weight: normal;
     font-size: 12px;
 }
-h4 span{
+#gameend p, h4 span{
     background-color: rgba(220, 23, 23, 0.7);
     padding: 2px 5px;
     border-radius: 4px;
@@ -80,6 +80,7 @@ h2{
     animation:blinking 2s infinite;
     font-size: 4rem;
     cursor: pointer;
+
 }
 
 .game-container{
@@ -104,6 +105,9 @@ h2{
     background-color: rgba(76, 249, 99, 0.5);
     
 }
+#won{
+    background-color: rgba(76, 249, 99, 0.5)!important;
+}
 .game-card p{
     text-align: center;
     color: #000;
@@ -117,6 +121,67 @@ h2{
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+#gameend{
+    display: none;
+    text-align: center;
+
+}
+#gameend h2{
+    color: red!important;
+    font-family: 'Tilt Prism', cursive;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+#gameend p{
+    font-size: 1.5rem;
+    letter-spacing: 0.3rem;
+
+}
+#gameend .endscore{
+    font-size: 1.4rem;
+    color: #fff;
+}
+#gameend div{
+    display: inline-block;
+    margin-top: 2rem;
+    
+}
+#gameend a{
+    padding: 5px 25px;
+    margin-right: 1rem;
+    border-radius: 2px;
+    border-bottom: 2px solid #fff;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    transition: .1s ease-in-out;
+}
+#gameend .playagain{
+    background-color: blueviolet;
+}
+#gameend .stat:hover, #gameend .playagain:hover{
+    color:#000;
+    border-bottom: 2px solid #000;
+}
+table{
+    
+    width: 100%;
+    text-align: center;
+   
+   font-size: 15px;
+   margin-top: 2rem;
+   color: #fff;
+   font-family: 'Calibri'!important;
+}
+.the{
+    font-weight: bold;
+    
+}
+td{
+    text-align: center;
+    border: 0.5px solid #ddd;
+   
 }
 @keyframes blinking{
     0%{  color: rgb(255, 196, 0); }
@@ -144,7 +209,25 @@ p{
     font-size: 11px;
 }
 
+.time{
+    background-color: red;
+    border-radius: 10px;
+    padding: 5px 15px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+    width: 100px;
+    display: flex;
+    position: absolute;
+    margin: auto;
+    text-align: center;
+
+
+}
 @media only screen and (max-width: 600px){
+    .time{
+        position: relative;
+    }
     .dash{
         width: 300px;
     }
@@ -167,5 +250,16 @@ p{
         width: 80px;
         height: 120px;
         padding: 10px;
+    }
+    #gameend h2{
+        font-size: 30px;
+    }
+    #gameend p{
+        font-size: 0.9rem;
+        letter-spacing: 0.2rem;
+        
+    }
+    table{
+        font-size: 12px;
     }
 }

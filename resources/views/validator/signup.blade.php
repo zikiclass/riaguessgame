@@ -3,7 +3,7 @@
 <div class="signup">
     <form>
         @csrf
-        <img src="img/logo.jpeg"/>
+        <a href="/"><img src="img/logo.jpeg"/></a>
         <h3>Sign Up</h3>
         <input type="text" name="fullname" placeholder="Full Name" id="fullname"/>
         <input type="email" name="email" placeholder="Email Address" id="email"/>

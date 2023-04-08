@@ -32,7 +32,7 @@
 <li><a href="viewgames"><i class="fa fa-gamepad" aria-hidden="true"></i>
  View Games</a></li>
 <li><a href="players"><i class="fa fa-male" aria-hidden="true"></i>
- Players</a></li>
+Users</a></li>
 <li><a href="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>
  Logout</a></li> 
 
@@ -55,7 +55,7 @@
 <li><a href="viewgames"><i class="fa fa-gamepad" aria-hidden="true"></i><br/>
  View Games</a></li>
 <li><a href="players"><i class="fa fa-male" aria-hidden="true"></i>
- Players</a></li>
+Users</a></li>
 <li><a href="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>
  Logout</a></li> 
 
