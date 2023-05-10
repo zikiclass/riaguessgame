@@ -4,7 +4,7 @@
 <h3>Ria Guess Game and Score</h3>
 <div class="dash-head">
 
-<h4>Score: <span>
+<h4>Score: <span id="newScore">
 @foreach($chkplayer as $score)
 @if(Auth::user()->username == $score->player1)
 {{ $score->player1score }}
@@ -14,22 +14,47 @@
 @endforeach
 </span></h4>
 <h4>Player: <span>{{ Auth::user()->username }}</span></h4>
+@foreach($chkplayer as $opponent)
+@if($opponent->player1 == Auth::user()->username)
+<h4>Opponent: <span class="oppo">{{ $opponent->player2 }}</span></h4>
+@else
+<h4>Opponent: <span class="oppo">{{ $opponent->player1 }}</span></h4>
+@endif
+
+<h4>Round(s): <span class="oppo">{{ $opponent->game_rounds }}</span></h4>
+@endforeach
 <a href="logout" class="logout">Logout</a>
 </div>
 <div class="dash-game">
-    
+    @foreach($chkplayer as $actions)
+    @if($actions->game_actions == 'p')
+    <div class="resume game_act" id="st">RESUME<span id="game_act">{{ $actions->game_actions }}</span></div>
+    @elseif($actions->game_actions == 's')
+    <div class="pause game_act" id="st">PAUSE<span id="game_act">{{ $actions->game_actions }}</span></div>
+    @elseif($actions->game_actions == 'st')
+    <div class="start game_act" id="st">START<span id="game_act">{{ $actions->game_actions }}</span></div>
+    @endif
+    @endforeach
 @foreach($chkplayer as $time)
-    <div class="time" id="time"><span id="minutes">{{ $time->minutes }}</span> : <span id="seconds">{{ $time->seconds}}</span></div>
+@if($time->minutes != '--')
+    <div class="time" id="time"><span id="minutes">{{ $time->minutes }}</span> : <span id="seconds">{{$time->seconds}}</span></div>
+@endif
     @endforeach
     
+   
     
     <div id="gameshow">
+     
     @csrf
     @foreach ($chkplayer as $chklist)
+    @if($chklist->minutes == '--')
+    <h2>&nbsp;</h2>
+    @else
     @if($chklist->guesstitle == '--' and $chklist->player1 <> Auth::user()->username)
     <h2 class="game-title">&nbsp;</h2>
     @else
     <h2 class="game-title play" id="title">{{$chklist->strikeword}}</h2>
+    @endif
     @endif
     @endforeach
     
@@ -49,11 +74,14 @@
         
 </div>
 @foreach ($chkplayer as $chklist)
-    @if($chklist->guesstitle == '--' && $chklist->player1 <> Auth::user()->username)
+    @if($chklist->minutes == '--')
+    <h2>&nbsp;</h2>
+    @else
+    @if($chklist->guesstitle == '--' and $chklist->player1 <> Auth::user()->username)
     <h2 class="game-title">&nbsp;</h2>
     @else
-    @csrf
-    <h2 class="game-title play" id="title">{{$chklist->strikeword}}</h2>
+    <h2 class="game-title play" id="title titlebelow">{{$chklist->strikeword}}</h2>
+    @endif
     @endif
     @endforeach
 
@@ -126,18 +154,25 @@
 
 @push('scripts')
 <script>
+   
+    
 $(document).ready(function(){
-    var seconds = document.getElementById("seconds").innerHTML;
-    var minutes = document.getElementById("minutes").innerHTML;
-
-    seconds = parseInt(seconds);
-    minutes = parseInt(minutes);
-    var zero = "0";
+    
+    
     setInterval(
         function()
         {
-            
-            if(minutes > 0 || seconds > 0){
+            var seconds = document.getElementById("seconds").innerHTML;
+    var minutes = document.getElementById("minutes").innerHTML;
+    var game_act = document.getElementById("game_act").innerHTML;
+     seconds = parseInt(seconds);
+    minutes = parseInt(minutes);
+    var zero = "0";
+
+            if(document.getElementById("minutes").innerHTML == '--'){
+                document.getElementById("time").style.display = "none";
+            }
+            else if((minutes > 0 || seconds > 0) && game_act == "s"){
             
             if(seconds == 0){
             seconds = 60;
@@ -170,15 +205,23 @@ $(document).ready(function(){
             });
             //console.log(new_secs);
            }
+           else if(game_act == "p"){
+
+           }
            else{
+            
+          
             document.getElementById("gameshow").style.display = "none";
-            document.getElementById("time").style.display = "none";
+           document.getElementById("time").style.display = "none";
             document.getElementById("gameend").style.display = "block";
+           
            }
         }
         
         ,1000);
 
+        
+    
     var title_select;
     $('.game-card').click(function(){
         var id = $(this).attr('data-id');
@@ -196,11 +239,48 @@ $(document).ready(function(){
         title_select = id;
 
     });
+    $('.start').click(function(){
+            $.ajax({
+                url: 'playStart',
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(data){
+                    if(data.success){
+                window.location.reload();
+               }
+                }
+            });
+        });
+    $('.pause').click(function(){
+            $.ajax({
+                url: 'playPause',
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(data){
+                    if(data.success){
+                window.location.reload();
+               }
+                }
+            });
+        });
+    $('.resume').click(function(){
+            $.ajax({
+                url: 'playResume',
+                type: 'GET',
+                dataType: 'JSON',
+                success: function(data){
+                    if(data.success){
+                window.location.reload();
+               }
+                }
+            });
+        });
+
 
     $('.play').click(function(){
         // alert(title_select);
         var id = title_select;
-        
+
         $.ajax({
             url: 'playgame/'+id,
             type: 'GET',
@@ -211,7 +291,24 @@ $(document).ready(function(){
             success: function(data){
                if(data.success){
                 alert(data.success);
-                window.location.reload();
+        var playSound = document.getElementById('title').innerHTML;
+        if(data.success != "Oops! wait for the next player to play JESH" && data.success != "Oops! wait for the next player to play GBAYE" && data.success != "RESUME PLAY !!!" && data.success != "Please make a guess"){
+if(playSound == "JESH"){
+    var audio = new Audio('sounds/jesh2.mp3');
+                audio.play();
+}
+else{
+    var audio = new Audio('sounds/gbaye2.mp3');
+                audio.play();
+}
+        }
+
+
+document.getElementById("newScore").innerHTML = data.score;
+const titleColor = document.getElementsByClassName("play");
+titleColor[0].innerHTML = data.strikeword;
+titleColor[1].innerHTML = data.strikeword;
+
                }
                
                

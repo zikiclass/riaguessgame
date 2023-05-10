@@ -86,6 +86,10 @@ if($id == "undefined" || $id == ""){
 $message = "Please make a guess";
 }
 else{
+    if($getRecords->game_actions == "p"){
+        $message = 'RESUME PLAY !!!';
+    }
+    else{
             if($getRecords->activeplayer == $username and $getRecords->strikeword == "JESH"){
                //IF THE GUESS IS RIGHT, GIVE THIS USER +5
                 if($getRecords->guesstitle == $id){
@@ -198,8 +202,25 @@ else{
             }
             
         }
+    }
+
+    $getFinalRec = DB::table('gamehistory')
+                            ->where(function($query){
+                                $query->where('player1', Auth::user()->username)
+                                ->orWhere('player2', Auth::user()->username);
+                            })
+                            ->where('game_status', 'on')
+                            ->first();
+    $newScore;
+
+    if($getFinalRec->player1 == Auth::user()->username){
+        $newScore = $getFinalRec->player1score;
+    }
+    elseif($getFinalRec->player2 == Auth::user()->username){
+        $newScore = $getFinalRec->player2score;
+    }
         
-        return response()->json(['success' => $message]);
+        return response()->json(['success' => $message, 'score' => $newScore, 'strikeword' => $getFinalRec->strikeword]);
     }
 
     function updateTime_fnc(Request $request){
@@ -210,7 +231,7 @@ else{
         })
         ->where('game_status', 'on')
         ->first();
-        
+        if($getRecords->game_actions == "s"){
         if($getRecords->game_rounds == '0'){
         $updateTime = DB::table('gamehistory')
                         ->where(function($query){
@@ -221,6 +242,7 @@ else{
                         ->update([
                             'minutes' => '00',
                             'seconds' => '00'
+                            
                         ]);
                     }
                     else{
@@ -235,6 +257,7 @@ else{
                             'seconds' => $request->seconds
                         ]);
                     }
+                }
     }
     function save_user(Request $request){
         $user = User::where('email', $request['email'])->first();
@@ -297,15 +320,16 @@ else{
         $saverecord = DB::table('gamehistory')->insert([
                 'player1' => $player2username,
                 'player2' => $player1username,
-                'minutes' => "60",
-                'seconds' => "00",
+                'minutes' => "--",
+                'seconds' => "--",
                 'guesstitle' => "--",
                 'strikeword' => "GBAYE",
                 'activeplayer' => $player2username,
                 'player1score' => "0",
                 'player2score' => "0",
                 'game_status' => 'on',
-                'game_rounds' => '12'
+                'game_rounds' => '12',
+                'game_actions' => 'st'
         ]);
         $deleterecord = DB::table('players')
                         ->where('username', $id)
@@ -332,6 +356,36 @@ else{
         if($addplayer){
             return redirect()->route('gamesettings');
         }
+    }
+    function playStart_fnc(){
+        DB::table('gamehistory')->where('player1', Auth::User()->username)
+                                ->orWhere('player2', Auth::User()->username)
+                                ->update([
+                                    'minutes' => '60',
+                                    'seconds' => '00',
+                                    'game_actions' => 's'
+                                ]);
+                                $message = 'ok';
+                                return response()->json(['success' => $message]);
+    }
+    function playResume_fnc(){
+        DB::table('gamehistory')->where('player1', Auth::User()->username)
+                                ->orWhere('player2', Auth::User()->username)
+                                ->update([
+                                    'game_actions' => 's'
+                                ]);
+                                $message = 'ok';
+                                return response()->json(['success' => $message]);
+    }
+    function playPause_fnc(){
+        DB::table('gamehistory')->where('player1', Auth::User()->username)
+                                ->orWhere('player2', Auth::User()->username)
+                                ->update([
+                                    
+                                    'game_actions' => 'p'
+                                ]);
+                                $message = 'ok';
+                                return response()->json(['success' => $message]);
     }
     function playagain_fnc(){
         $username = Auth::user()->username;

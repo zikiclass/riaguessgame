@@ -41,6 +41,9 @@ Route::get('startGame/{id}', [Validator::class, 'startGame_fnc'])->name('startGa
 Route::get('playgame/{id}', [Validator::class, 'playgame_fnc'])->name('playgame');
 Route::get('updateTime/{minutes}/{seconds}', [Validator::class, 'updateTime_fnc'])->name('updateTime');
 Route::get('playagain', [Validator::class, 'playagain_fnc'])->name('playagain');
+Route::get('playStart', [Validator::class, 'playStart_fnc'])->name('playStart');
+Route::get('playPause', [Validator::class, 'playPause_fnc'])->name('playPause');
+Route::get('playResume', [Validator::class, 'playResume_fnc'])->name('playResume');
 });
 
 Route::group(['middleware' => ['auth', 'auth.admin', 'prevent-back']], function(){

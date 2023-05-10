@@ -17,7 +17,6 @@ body{
 .dash{
     width: 1000px;
     height: 500px;
-    
     left: 50%;
     top: 50%;
     border-radius: 10px;
@@ -183,6 +182,57 @@ td{
     border: 0.5px solid #ddd;
    
 }
+.start{
+    float: right;
+    color: #fff;
+    background-color:rgba(16, 141, 244, 0.37);
+    border-radius: 6px;
+    border: 0;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.resume{
+    float: right;
+    color: #fff;
+    background-color:green;
+    border-radius: 6px;
+    border: 0;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.pause{
+    float: right;
+    color: #fff;
+    background-color:rgba(192, 9, 6, 0.918);
+    border-radius: 6px;
+    border: 0;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.game_acts{
+    display: none;
+}
+#game_act{
+    display: none;
+}
+.sound-gb{
+    font-size: 1.5rem;
+    cursor: pointer;
+
+}
+.sound-gb::after{
+    display: inline-block;
+    content: attr(data-file);
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    color: rgba(0,0,0,0.5);
+}
+.oppo{
+    background-color:rgba(16, 141, 244, 0.37);
+}
 @keyframes blinking{
     0%{  color: rgb(255, 196, 0); }
     47%{  color: #ddf46d; }
@@ -239,6 +289,11 @@ p{
         
         padding: 10px 20px;
         
+    }
+    .dash-head{
+        height: 100px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
     }
     .game-container{
         display: grid;
